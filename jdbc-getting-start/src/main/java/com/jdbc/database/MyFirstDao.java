@@ -6,10 +6,20 @@ import java.sql.SQLException;
 public class MyFirstDao {
 
 	private static String SQL = "select count(*) from state";
+	
+	private ConnectionManager manager;
+	
+   public MyFirstDao(ConnectionManager manager) {
+	   this.manager=manager;
+	   
+	
+}
+	
+	
 
 	public long getCourseCount() {
 
-		try (var connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/location_db", "root", "admin");
+		try (var connection = manager.getConnection();
 				var statement = connection.createStatement()) {
 
 			var resultSet = statement.executeQuery(SQL);
